@@ -24,6 +24,38 @@ fi
 
 
 
+====================================================================
+
+#!/bin/bash
+
+# Define log files to check
+LOG_FILES=(
+    "/var/log/syslog.1"
+    "/var/log/nginx/access.log.1"
+)
+
+# Size threshold in bytes (1G = 1073741824 bytes)
+THRESHOLD=1073741824
+# Script to execute if condition is met
+COMPRESS_SCRIPT="/path/to/compress_log.sh"
+
+for LOG_FILE in "${LOG_FILES[@]}"; do
+    if [[ -f "$LOG_FILE" ]]; then
+        FILE_SIZE=$(stat -c%s "$LOG_FILE")
+
+        if [[ $FILE_SIZE -gt $THRESHOLD ]]; then
+            echo "File $LOG_FILE is greater than 1G. Compressing..."
+            bash "$COMPRESS_SCRIPT" "$LOG_FILE"
+        else
+            echo "File $LOG_FILE is within limits. No action required."
+        fi
+    else
+        echo "File $LOG_FILE not found."
+    fi
+done
+
+
+
 
 
 
