@@ -75,3 +75,24 @@ if [[ -f "$LOG_FILE" ]]; then
 else
     echo "Log file not found. No action taken."
 fi
+================================================================
+
+
+#!/bin/bash
+
+# Get the log file as an argument
+LOG_FILE="$1"
+
+# Check if argument is provided
+if [[ -z "$LOG_FILE" ]]; then
+    echo "No log file provided."
+    exit 1
+fi
+
+# Check if file exists
+if [[ -f "$LOG_FILE" ]]; then
+    gzip "$LOG_FILE"
+    echo "Compression complete: $LOG_FILE.gz"
+else
+    echo "Log file $LOG_FILE not found. No action taken."
+fi
