@@ -1,5 +1,5 @@
 # Configure the Google Cloud provider
-terraform {
+!terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
